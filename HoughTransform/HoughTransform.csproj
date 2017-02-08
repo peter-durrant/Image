@@ -92,7 +92,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageProcessing\ImageProcessing.csproj">
+    <ProjectReference Include="ImageProcessing\ImageProcessing.csproj">
       <Project>{1EBC4DD4-370C-4EB4-85BF-F21F8D8597ED}</Project>
       <Name>ImageProcessing</Name>
     </ProjectReference>

@@ -39,7 +39,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HoughTransform\ImageGenerator\ImageGenerator.csproj">
+    <ProjectReference Include="..\ImageGenerator\ImageGenerator.csproj">
       <Project>{AEF40BB0-881C-4D95-A4B9-ED82EDE236BA}</Project>
       <Name>ImageGenerator</Name>
     </ProjectReference>
