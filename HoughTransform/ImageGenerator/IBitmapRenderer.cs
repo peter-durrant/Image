@@ -6,6 +6,9 @@ namespace HDD.ImageGenerator
 {
    public interface IBitmapRenderer
    {
+      /// <summary>
+      ///    Pixel representation
+      /// </summary>
       RenderTargetBitmap Bitmap { get; }
 
       /// <summary>

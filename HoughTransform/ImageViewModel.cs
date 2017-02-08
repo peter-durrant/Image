@@ -3,24 +3,26 @@ using System.Windows.Media.Imaging;
 using Hdd.Logger;
 using Hdd.Presentation.Core;
 using HDD.ImageGenerator;
+using HDD.ImageProcessing;
 
 namespace HDD.HoughTransform
 {
    public class ImageViewModel : ViewModelBase
    {
-      private readonly ImageModel _imageModel;
+      private readonly ImageGeneratorModel _imageGeneratorModel;
       private readonly ILogger _logger;
       private ICommand _clearImageCommand;
       private ICommand _createCirclesCommand;
+      private ICommand _findCirclesCommand;
       private ICommand _saveImageCommand;
 
       public ImageViewModel()
       {
          _logger = new Logger();
-         _imageModel = new ImageModel(1000, 1000);
+         _imageGeneratorModel = new ImageGeneratorModel(1000, 1000);
       }
 
-      public RenderTargetBitmap Bitmap => _imageModel.Bitmap;
+      public RenderTargetBitmap Bitmap => _imageGeneratorModel.Bitmap;
 
       public ICommand CreateCirclesCommand
       {
@@ -31,7 +33,7 @@ namespace HDD.HoughTransform
                   _createCirclesCommand ?? new RelayCommand(x =>
                   {
                      _logger.Info(this, "Create circles");
-                     _imageModel.CreateCircles(5, 20, 100);
+                     _imageGeneratorModel.CreateCircles(5, 20, 100);
                   });
          }
       }
@@ -44,7 +46,7 @@ namespace HDD.HoughTransform
                _saveImageCommand ?? new RelayCommand(x =>
                {
                   _logger.Info(this, "Save image");
-                  _imageModel.Save("circles.png");
+                  _imageGeneratorModel.Save("circles.png");
                });
          }
       }
@@ -57,7 +59,22 @@ namespace HDD.HoughTransform
                _clearImageCommand ?? new RelayCommand(x =>
                {
                   _logger.Info(this, "Clear image");
-                  _imageModel.Clear();
+                  _imageGeneratorModel.Clear();
+               });
+         }
+      }
+
+      public ICommand FindCirclesCommand
+      {
+         get
+         {
+            return _findCirclesCommand =
+               _findCirclesCommand ?? new RelayCommand(x =>
+               {
+                  _logger.Info(this, "Find circles");
+                  var pixels = BitmapRendererAdapter.Pixels(_imageGeneratorModel.Bitmap);
+                  var imageProcessingModel = new ImageProcessingModel();
+                  imageProcessingModel.FindCircles(pixels);
                });
          }
       }

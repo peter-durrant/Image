@@ -92,6 +92,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageProcessing\ImageProcessing.csproj">
+      <Project>{1EBC4DD4-370C-4EB4-85BF-F21F8D8597ED}</Project>
+      <Name>ImageProcessing</Name>
+    </ProjectReference>
     <ProjectReference Include="ImageGenerator\ImageGenerator.csproj">
       <Project>{aef40bb0-881c-4d95-a4b9-ed82ede236ba}</Project>
       <Name>ImageGenerator</Name>

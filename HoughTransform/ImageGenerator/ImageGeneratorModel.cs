@@ -2,13 +2,13 @@
 
 namespace HDD.ImageGenerator
 {
-   public class ImageModel
+   public class ImageGeneratorModel
    {
       private readonly IBitmapRenderer _bitmapRenderer;
       private readonly int _pixelHeight;
       private readonly int _pixelWidth;
 
-      public ImageModel(int pixelWidth, int pixelHeight, int dpi = 96)
+      public ImageGeneratorModel(int pixelWidth, int pixelHeight, int dpi = 96)
       {
          _pixelWidth = pixelWidth;
          _pixelHeight = pixelHeight;
