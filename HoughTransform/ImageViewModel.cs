@@ -72,9 +72,8 @@ namespace HDD.HoughTransform
                _findCirclesCommand ?? new RelayCommand(x =>
                {
                   _logger.Info(this, "Find circles");
-                  var pixels = BitmapRendererAdapter.Pixels(_imageGeneratorModel.Bitmap);
                   var imageProcessingModel = new ImageProcessingModel();
-                  imageProcessingModel.FindCircles(pixels);
+                  imageProcessingModel.FindCircles(_imageGeneratorModel.Gray8Pixels);
                });
          }
       }

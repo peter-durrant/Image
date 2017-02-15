@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 // Based on code from
@@ -8,29 +7,20 @@ using System.Windows.Media.Imaging;
 
 namespace HDD.ImageGenerator
 {
-   [StructLayout(LayoutKind.Sequential)]
-   public struct PixelColor
-   {
-      public byte Blue;
-      public byte Green;
-      public byte Red;
-      public byte Alpha;
-   }
-
    public static class BitmapRendererAdapter
    {
-      public static PixelColor[,] Pixels(BitmapSource source)
+      public static byte[,] Gray8Pixels(BitmapSource source)
       {
-         if (source.Format != PixelFormats.Bgra32)
+         if (source.Format != PixelFormats.Gray8)
          {
-            source = new FormatConvertedBitmap(source, PixelFormats.Bgra32, null, 0);
+            source = new FormatConvertedBitmap(source, PixelFormats.Gray8, null, 0);
          }
 
          var width = source.PixelWidth;
          var height = source.PixelHeight;
-         var result = new PixelColor[width, height];
+         var result = new byte[width, height];
 
-         source.CopyAllPixels(result, width * 4, 0);
+         source.CopyAllPixels(result, width);
          return result;
       }
    }

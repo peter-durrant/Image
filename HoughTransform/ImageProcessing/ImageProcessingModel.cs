@@ -4,7 +4,7 @@ namespace HDD.ImageProcessing
 {
    public class ImageProcessingModel
    {
-      public void FindCircles(PixelColor[,] pixels)
+      public void FindCircles(byte[,] pixels)
       {
          var cht = new CircleHoughTransform(pixels);
       }

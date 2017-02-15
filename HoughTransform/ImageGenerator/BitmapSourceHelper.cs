@@ -1,4 +1,6 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 // Based on code from
 // http://stackoverflow.com/questions/1176910/finding-specific-pixel-colors-of-a-bitmapimage/1740553#1740553
@@ -9,35 +11,29 @@ namespace HDD.ImageGenerator
    public static class BitmapSourceHelper
    {
 #if UNSAFE
-  public unsafe static void CopyAllPixels(this BitmapSource source, PixelColor[,] pixels, int stride, int offset)
-  {
-    fixed(PixelColor* buffer = &pixels[0, 0])
-      source.CopyPixels(
-        new Int32Rect(0, 0, source.PixelWidth, source.PixelHeight),
-        (IntPtr)(buffer + offset),
-        pixels.GetLength(0) * pixels.GetLength(1) * sizeof(PixelColor),
-        stride);
-  }
+      public static unsafe void CopyAllPixels(this BitmapSource source, byte[,] pixels, int stride, int offset)
+      {
+         fixed (byte* buffer = &pixels[0, 0])
+         {
+            source.CopyPixels(
+               new Int32Rect(0, 0, source.PixelWidth, source.PixelHeight),
+               (IntPtr) (buffer + offset),
+               pixels.GetLength(0) * pixels.GetLength(1) * sizeof(byte),
+               stride);
+         }
+      }
 #else
-      public static void CopyAllPixels(this BitmapSource source, PixelColor[,] pixels, int stride, int offset)
+      public static void CopyAllPixels(this BitmapSource source, byte[,] pixels, int stride)
       {
          var height = source.PixelHeight;
          var width = source.PixelWidth;
-         var pixelBytes = new byte[height * width * 4];
+         var pixelBytes = new byte[height * width];
          source.CopyPixels(pixelBytes, stride, 0);
-         var y0 = offset / width;
-         var x0 = offset - width * y0;
          for (var y = 0; y < height; y++)
          {
             for (var x = 0; x < width; x++)
             {
-               pixels[x + x0, y + y0] = new PixelColor
-               {
-                  Blue = pixelBytes[(y * width + x) * 4 + 0],
-                  Green = pixelBytes[(y * width + x) * 4 + 1],
-                  Red = pixelBytes[(y * width + x) * 4 + 2],
-                  Alpha = pixelBytes[(y * width + x) * 4 + 3]
-               };
+               pixels[x, y] = pixelBytes[y * width + x];
             }
          }
       }

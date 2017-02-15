@@ -18,6 +18,15 @@ namespace HDD.ImageGenerator
 
       public RenderTargetBitmap Bitmap => _bitmapRenderer.Bitmap;
 
+      public byte[,] Gray8Pixels
+      {
+         get
+         {
+            var pixels = BitmapRendererAdapter.Gray8Pixels(_bitmapRenderer.Bitmap);
+            return pixels;
+         }
+      }
+
       public void CreateCircles(int numCircles, int minRadius, int maxRadius)
       {
          CircleGenerator.Generate(_bitmapRenderer, _pixelWidth, _pixelHeight, numCircles, minRadius, maxRadius);
