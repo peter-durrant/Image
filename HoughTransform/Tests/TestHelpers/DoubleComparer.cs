@@ -15,15 +15,8 @@ namespace HDD.TestHelpers
 
       public int Compare(object x, object y)
       {
-         var xConvertible = x as IConvertible;
-         var yConvertible = y as IConvertible;
-         if ((xConvertible == null) || (yConvertible == null))
-         {
-            return 0;
-         }
-
-         var value1 = xConvertible.ToDouble(CultureInfo.InvariantCulture);
-         var value2 = yConvertible.ToDouble(CultureInfo.InvariantCulture);
+         var value1 = ((IConvertible) x).ToDouble(CultureInfo.InvariantCulture);
+         var value2 = ((IConvertible) y).ToDouble(CultureInfo.InvariantCulture);
 
          if (Math.Abs(value1 - value2) < _tolerance)
          {
