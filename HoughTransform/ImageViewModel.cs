@@ -19,7 +19,7 @@ namespace HDD.HoughTransform
       public ImageViewModel()
       {
          _logger = new Logger();
-         _imageGeneratorModel = new ImageGeneratorModel(1000, 1000);
+         _imageGeneratorModel = new ImageGeneratorModel(1000, 500);
       }
 
       public RenderTargetBitmap Bitmap => _imageGeneratorModel.Bitmap;
