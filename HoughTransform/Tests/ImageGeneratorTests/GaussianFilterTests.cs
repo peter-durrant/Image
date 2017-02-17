@@ -13,10 +13,10 @@ namespace ImageGeneratorTests
          ()
       {
          // act
-         var filter = GaussianFilter.Generate(5, 1);
+         var filter = new GaussianFilter(5, 1);
 
          // assert
-         var sum = filter.Sum();
+         var sum = filter.Filter.Sum();
          var comparer = new DoubleComparer(1e-8);
          Assert.AreEqual(0, comparer.Compare(1, sum));
       }
@@ -26,10 +26,10 @@ namespace ImageGeneratorTests
          ()
       {
          // act
-         var filter = GaussianFilter.Generate(9, 2);
+         var filter = new GaussianFilter(9, 2);
 
          // assert
-         var sum = filter.Sum();
+         var sum = filter.Filter.Sum();
          var comparer = new DoubleComparer(1e-8);
          Assert.AreEqual(0, comparer.Compare(1, sum));
       }
@@ -42,10 +42,10 @@ namespace ImageGeneratorTests
          var expectedFilter = new[] {0.06136, 0.24477, 0.38774, 0.24477, 0.06136};
 
          // act
-         var filter = GaussianFilter.Generate(5, 1);
+         var filter = new GaussianFilter(5, 1);
 
          // assert
-         CollectionAssert.AreEqual(expectedFilter, filter, new DoubleComparer(1e-4));
+         CollectionAssert.AreEqual(expectedFilter, filter.Filter, new DoubleComparer(1e-4));
       }
 
       [TestMethod]
@@ -56,10 +56,10 @@ namespace ImageGeneratorTests
          var expectedFilter = new[] {0.153388, 0.221461, 0.250301, 0.221461, 0.153388};
 
          // act
-         var filter = GaussianFilter.Generate(5, 2);
+         var filter = new GaussianFilter(5, 2);
 
          // assert
-         CollectionAssert.AreEqual(expectedFilter, filter, new DoubleComparer(1e-4));
+         CollectionAssert.AreEqual(expectedFilter, filter.Filter, new DoubleComparer(1e-4));
       }
 
       [TestMethod]
@@ -70,10 +70,10 @@ namespace ImageGeneratorTests
          var expectedFilter = new[] {0.00598, 0.060626, 0.241843, 0.383103, 0.241843, 0.060626, 0.00598};
 
          // act
-         var filter = GaussianFilter.Generate(7, 1);
+         var filter = new GaussianFilter(7, 1);
 
          // assert
-         CollectionAssert.AreEqual(expectedFilter, filter, new DoubleComparer(1e-4));
+         CollectionAssert.AreEqual(expectedFilter, filter.Filter, new DoubleComparer(1e-4));
       }
 
       [TestMethod]
@@ -84,10 +84,10 @@ namespace ImageGeneratorTests
          var expectedFilter = new[] {0.071303, 0.131514, 0.189879, 0.214607, 0.189879, 0.131514, 0.071303};
 
          // act
-         var filter = GaussianFilter.Generate(7, 2);
+         var filter = new GaussianFilter(7, 2);
 
          // assert
-         CollectionAssert.AreEqual(expectedFilter, filter, new DoubleComparer(1e-4));
+         CollectionAssert.AreEqual(expectedFilter, filter.Filter, new DoubleComparer(1e-4));
       }
    }
 }

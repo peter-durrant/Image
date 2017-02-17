@@ -45,18 +45,25 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="GaussianFilterTests.cs" />
+    <Compile Include="ImageSmoothingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ImageGenerator\ImageGenerator.csproj">
       <Project>{AEF40BB0-881C-4D95-A4B9-ED82EDE236BA}</Project>
       <Name>ImageGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ImageProcessing\ImageProcessing.csproj">
+      <Project>{1EBC4DD4-370C-4EB4-85BF-F21F8D8597ED}</Project>
+      <Name>ImageProcessing</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
       <Project>{aa644a33-90e0-4b5b-8729-c3b02870b3a0}</Project>

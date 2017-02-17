@@ -2,36 +2,42 @@
 
 namespace HDD.ImageGenerator
 {
-   public static class GaussianFilter
+   public class GaussianFilter
    {
       private static readonly double OneOverSquareRootTwoPi = 1.0 / Math.Sqrt(2.0 * Math.PI);
 
       /// <summary>
       ///    Generate 1D Gaussian convolution kernel for 2D Gaussian filter. Must be applied vertically and horizontally.
       /// </summary>
-      /// <param name="distance">Distance across the kernel, central point corresponds to max weight of target pixel, odd number.</param>
+      /// <param name="size">Distance across the kernel, central point corresponds to max weight of target pixel, odd number.</param>
       /// <param name="deviation">Standard deviation of the distribution.</param>
       /// <returns>One dimensional array containing a Gaussian kernel.</returns>
-      public static double[] Generate(int distance, double deviation)
+      public GaussianFilter(int size, double deviation)
       {
-         var mask = new double[distance];
-         var range = (int) Math.Floor(distance / 2.0);
+         Size = size;
+         Deviation = deviation;
+         Filter = new double[size];
+         var range = (int) Math.Floor(size / 2.0);
 
          double sum = 0;
          for (var i = -range; i <= range; ++i)
          {
             var y = IntegrateGaussian(i, 0.5, 100, deviation);
-            mask[i + range] = y;
+            Filter[i + range] = y;
             sum += y;
          }
 
-         for (var i = 0; i < distance; ++i)
+         for (var i = 0; i < size; ++i)
          {
-            mask[i] /= sum;
+            Filter[i] /= sum;
          }
-
-         return mask;
       }
+
+      public int Size { get; private set; }
+
+      public double Deviation { get; private set; }
+
+      public double[] Filter { get; }
 
       private static double IntegrateGaussian(double center, double radius, int steps, double deviation)
       {
